@@ -1,0 +1,27 @@
+{
+  "name": "media-analytics-mock-example",
+  "version": "1.0.0",
+  "description": "Media analytics example",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "start": "tsc -p . && node dist/src/index.js",
+    "buildImage": "node ./scripts/buildImage.js",
+    "buildFeaturePack": "node ./scripts/buildFeaturePack.js",
+    "publish": "node ./scripts/publish.js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "joi": "^14.3.1",
+    "log4js": "^3.0.6",
+    "proxy-bal": "file:proxy-bal-3.10.8.tgz",
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "cloudux-starter-kit-service": "^2.0.0",
+    "mocha": "^4.0.1",
+    "@types/log4js": "^2.3.5",
+    "@types/node": "^10.12.18",
+    "@types/joi": "^14.0.1"
+  }
+}

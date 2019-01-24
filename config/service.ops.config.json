@@ -1,0 +1,348 @@
+{
+	"getSupportedTypes": {
+        "description": "The getSupportedTypes operation returns the analytic types grouped by media type that this media analytics provider supports.",
+		"rest": {
+            "path": "analytics/types",
+            "queryParams": ["name"],
+            "method": "GET"
+		}
+    },
+    "startJob": {
+        "description": "The start job operation starts a new Media Analytics Job based on the passed jobSpec and returns the jobId.",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "sourceUrl": "\\\\<server>\\Folder\\SubFolder\\SomeFile.mp4",
+                    "language": "en",
+                    "types": [
+                        "Annotations",
+                        "AudioEffects",
+                        "FaceDetection",
+                        "FramePatterns",
+                        "STT",
+                        "Metadata",
+                        "OCR",
+                        "Scenes",
+                        "Sentiments"
+                    ],
+                    "parameters": {
+                        "editRate": "30000/1001"
+                    }
+                },
+				"expectedResults": {
+                    "jobID": 12
+                }
+            }
+        },
+		"rest": {
+            "path": "analytics",
+            "queryParams": [
+                "sourceUrl",
+                "language",
+                "types",
+                "parameters"
+            ],
+            "method": "POST"
+		}
+	},
+    "getJob": {
+        "description": "some about this method",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "id": "37c792e6-97cd-4319-9529-c37e54e282f9"
+                },
+				"expectedResults": {
+					"result": {
+                        "id": "37c792e6-97cd-4319-9529-c37e54e282f9",
+                        "state": "pending",
+                        "message": "Some status message",
+                        "error": "Some error message",
+                        "progress": 55.78
+                    }
+				}
+            }
+        },
+		"rest": {
+            "path": "analytics/{id}/state",
+            "queryParams": ["id"],
+            "method": "GET"
+		}
+	},
+    "getResult": {
+        "description": "The getResult operation returns all results of the analytics job for the given id.",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "id": "37c792e6-97cd-4319-9529-c37e54e282f9"
+                },
+				"expectedResults": {
+                    "id": "37c792e6-97cd-4319-9529-c37e54e282f9",
+                    "results": [{
+                        "type": "Sentiments",
+                        "dataType": "aa:time-based",
+                        "data": {
+                            "editRate": "30000/1001",
+                            "dropFrame": false,
+                            "layers": [{
+                                "name": "MAN_Sentiments",
+                                "segments": [{
+                                    "id": "1",
+                                    "start": 0,
+                                    "duration": 1027,
+                                    "attributes": [{
+                                        "name": "MAN_Sentiment_Type",
+                                        "value": "Neutral"
+                                    }]
+                                },
+                                {
+                                    "id": "2",
+                                    "start": 1027,
+                                    "duration": 280,
+                                    "attributes": [{
+                                        "name": "MAN_Sentiment_Type",
+                                        "value": "Neutral"
+                                    }]
+                                }]
+                            }]
+                        }
+                    },
+                    {
+                        "type": "Metadata",
+                        "dataType": "aa:asset",
+                        "data": {
+                            "base": {
+                                
+                            },
+                            "common": {
+                                
+                            },
+                            "_links": {
+                                "self": {
+                                    "href": "http://dummy"
+                                },
+                                "aa:attributes": {
+                                    "href": "http://dummy"
+                                }
+                            },
+                            "_embedded": {
+                                "aa:attributes": {
+                                    "attributes": [{
+                                        "name": "MAN_IsRacialContent",
+                                        "value": false
+                                    },
+                                    {
+                                        "name": "MAN_Topics",
+                                        "value": [{
+                                            "attributes": [{
+                                                "name": "MAN_Topic_Name",
+                                                "value": "anthony dragon"
+                                            },
+                                            {
+                                                "name": "TopicRank",
+                                                "value": 4.0
+                                            }]
+                                        }]
+                                    },
+                                    {
+                                        "name": "MAN_Persons",
+                                        "value": [{
+                                            "attributes": [{
+                                                "name": "MAN_Person_Name",
+                                                "value": "Speaker #0"
+                                            },
+                                            {
+                                                "name": "MAN_Person_Title",
+                                                "value": null
+                                            },
+                                            {
+                                                "name": "MAN_Person_Description",
+                                                "value": null
+                                            },
+                                            {
+                                                "name": "MAN_ImageUrl",
+                                                "value": null
+                                            }]
+                                        },
+                                        {
+                                            "attributes": [{
+                                                "name": "MAN_Person_Name",
+                                                "value": "Speaker #1"
+                                            },
+                                            {
+                                                "name": "MAN_Person_Title",
+                                                "value": null
+                                            },
+                                            {
+                                                "name": "MAN_Person_Description",
+                                                "value": null
+                                            },
+                                            {
+                                                "name": "MAN_ImageUrl",
+                                                "value": null
+                                            }]
+                                        }]
+                                    }],
+                                    "_links": {
+                                        "self": {
+                                            "href": "http://dummy"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }]
+                }
+            }
+        },
+		"rest": {
+            "path": "analytics/{id}",
+            "queryParams": ["id"],
+            "method": "GET"
+		}
+	},
+    "getResultForType": {
+        "description": "The getResultForType operation returns the result for a specific analytic type.",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "id": "37c792e6-97cd-4319-9529-c37e54e282f9",
+                    "type": "Sentiments"
+                },
+				"expectedResults": {
+                    "type": "Sentiments",
+                    "dataType": "aa:time-based",
+                    "data": {
+                        "editRate": "30000/1001",
+                        "dropFrame": false,
+                        "layers": [{
+                            "name": "MAN_Sentiments",
+                            "segments": [{
+                                "id": "1",
+                                "start": 0,
+                                "duration": 1027,
+                                "attributes": [{
+                                    "name": "MAN_Sentiment_Type",
+                                    "value": "Neutral"
+                                }]
+                            },
+                            {
+                                "id": "2",
+                                "start": 1027,
+                                "duration": 280,
+                                "attributes": [{
+                                    "name": "MAN_Sentiment_Type",
+                                    "value": "Neutral"
+                                }]
+                            }]
+                        }]
+                    }
+                }
+            }
+        },
+		"rest": {
+            "path": "analytics/{id}/results/{type}",
+            "queryParams": [
+                "id",
+                "type"
+            ],
+            "method": "GET"
+		}
+	},
+    "delete": {
+        "description": "The delete operation deletes the analytics job with the given id.",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "id": "37c792e6-97cd-4319-9529-c37e54e282f9"
+                },
+				"expectedResults": {
+					"context": {
+                        "http": {
+                            "response": {
+                                "status": 200
+                            }
+                        }
+                    }
+				}
+            }
+        },
+		"rest": {
+            "path": "analytics/{id}",
+            "queryParams": ["id"],
+            "method": "DELETE"
+		}
+	},
+    "search": {
+        "description": "The search operation returns the analytic jobs based on the AnalyticsJobsFilter.",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "skip": 0,
+                    "pageSize": 10
+                },
+				"expectedResults": {
+					"result": {
+                        "jobs": [{
+                            "id": "afa30b23-ba66-49f3-91de-a731f1d83901",
+                            "state": "error",
+                            "message": null,
+                            "error": "Failed to analyze file",
+                            "progress": 55.78
+                        },
+                        {
+                            "id": "72dec2f9-ed52-4d7f-8f5c-48ba83d2e70a",
+                            "state": "uploading",
+                            "message": "Uploading file ...",
+                            "error": null,
+                            "progress": 10.0
+                        },
+                        {
+                            "id": "f3aaf563-c348-414c-856d-a228f8320f33",
+                            "state": "finished",
+                            "message": null,
+                            "error": null,
+                            "progress": 100
+                        }],
+                        "nextPage": {
+                            "skip": 0,
+                            "pageSize": 10,
+                            "done": true
+                        }
+                    }
+				}
+            }
+        },
+		"rest": {
+            "path": "analytics/search",
+            "queryParams": [
+                "skip", 
+                "pageSize"
+            ],
+            "method": "POST"
+		}
+	},
+    "cancel": {
+        "description": "The cancel operation aborts a running analytics job.",
+        "examples": {
+            "first": {
+                "paramSet": {
+                    "id": "37c792e6-97cd-4319-9529-c37e54e282f9"
+                },
+				"expectedResults": {
+					"context": {
+                        "http": {
+                            "response": {
+                                "status": 200
+                            }
+                        }
+                    }
+				}
+            }
+        },
+		"rest": {
+            "path": "analytics/{id}/cancel",
+            "method": "POST"
+		}
+	}
+}
